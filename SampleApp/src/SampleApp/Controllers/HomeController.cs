@@ -46,23 +46,18 @@ namespace SampleApp.Controllers
                 tasksList = session.Query<MyTask>().ToList();
             }
 
-            // Create Sample Data if does not exists yet
+            // Create Sample Data if does not exist yet
             if (tasksList.Count == 0)
             {
                 using (var session = DocumentStoreHolder.Store.OpenSession())
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        var user = new MyTask {TaskToDo = "Task number " + i};
-                        session.Store(user);
+                        var sampleTask = new MyTask {TaskToDo = "Task number " + i};
+                        session.Store(sampleTask);
+                        tasksList.Add(sampleTask);
                     }
                     session.SaveChanges();
-                }
-
-                // Get the new created data and pass to the view
-                using (var session = DocumentStoreHolder.Store.OpenSession())
-                {
-                    tasksList = session.Query<MyTask>().ToList();
                 }
             }
 
@@ -88,7 +83,7 @@ namespace SampleApp.Controllers
 
         public IActionResult RemoveItem(int id)
         {
-            // TODO: need to implement from the UI
+            // TODO: Still need to implement coming here from the UI
 
             using (var session = DocumentStoreHolder.Store.OpenSession())
             {
