@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SampleApp.Models.MyTask>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <h2>My To Do List</h2><hr />
+        <br />
+
+        <div class="well well-lg">
+            <br /><br />
+            @*Simple List View*@
+            @foreach (var item in Model)
+            {
+                <ul>
+                    <li>
+                        @Html.DisplayFor(modelItem => item.TaskToDo)
+                    </li>
+                </ul>
+            }
+            
+            @*TODO: implement 'remove' with the table view*@
+            @*Table View*@
+            @*<div class="table-responsive">
+                    <table class="table table-condensed table-striped">
+                        <tr>
+                            <th colspan="2"><h3>Task Content</h3></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TaskToDo)
+                                </td>
+                                <td>
+                                    <button class="btn btn-default">Remove</button>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>*@
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @using (Html.BeginForm("AddItem", "Home", FormMethod.Post, new { @class = "navbar-form" }))
+    {
+        @Html.Editor("NewTask", new
+   {
+       htmlAttributes = new
+       {
+           @class = "form-control",
+           @placeholder = "Enter a new task",
+       }
+   })
+
+        <button type="submit" class="btn btn-default">Add Task</button>
+    }
+</div>
+
