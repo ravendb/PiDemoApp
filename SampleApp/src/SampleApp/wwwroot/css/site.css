@@ -14,7 +14,8 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    /*max-width: 280px;*/
+    max-width: 500px;
 }
 
 /* Carousel */
@@ -36,3 +37,9 @@ textarea {
     display: none
   }
 }
+
+/* My Additions */
+#ItemsTableId {
+    /*background-color: bisque;*/
+}
+
