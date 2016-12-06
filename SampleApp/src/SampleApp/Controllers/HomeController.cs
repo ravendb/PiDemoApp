@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Raven.NewClient.Client.Document;
+using Raven.Client.Document;
 using SampleApp.Models;
 using System;
 using System.Net.Http;
-using Raven.NewClient.Client;
+using Raven.Client;
 
 namespace SampleApp.Controllers
 {
