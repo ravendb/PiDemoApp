@@ -1,1 +1,3 @@
-#:C:\Work\SampleApp\SampleApp\src\SampleApp\SampleApp.xproj
+#:C:\Work\PiDemoApp\SampleApp\src\SampleApp\SampleApp.xproj
+C:\Work\PiDemoApp\SampleApp\src\SampleApp\SampleApp.xproj|C:\Work\PiDemoApp\SampleApp\lib\Raven.Client\Raven.Client.xproj
+C:\Work\PiDemoApp\SampleApp\lib\Raven.Client\Raven.Client.xproj|C:\Work\PiDemoApp\SampleApp\lib\Sparrow\Sparrow.xproj

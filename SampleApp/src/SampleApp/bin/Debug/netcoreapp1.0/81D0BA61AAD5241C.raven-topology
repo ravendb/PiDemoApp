@@ -1,1 +1,0 @@
-{"LeaderNode":{"Url":"http://localhost:8080""Database":"MyTasksDatabase""ApiKey":null}"Nodes":[]"ReadBehavior":"LeaderWithFailoverWhenRequestTimeSlaThresholdIsReached""WriteBehavior":"LeaderOnly"}
