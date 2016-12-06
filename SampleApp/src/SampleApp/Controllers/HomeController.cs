@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Raven.NewClient.Client.Document;
 using SampleApp.Models;
 using System;
-using System.Net.Http;
 using Raven.NewClient.Client;
+using SampleApp.ViewModels;
 
 namespace SampleApp.Controllers
 {
@@ -39,29 +39,39 @@ namespace SampleApp.Controllers
     {
         public IActionResult Index()
         {
-            // Get Data
+            // 1. Get Data
             List<MyTask> tasksList = new List<MyTask>();
+            List<MyTaskViewModel> tasksListForView = new List<MyTaskViewModel>();
+
             using (var session = DocumentStoreHolder.Store.OpenSession())
             {
                 tasksList = session.Query<MyTask>().ToList();
             }
 
-            // Create Sample Data if does not exist yet
+            // 2. Create Sample Data if does not exist yet
             if (tasksList.Count == 0)
             {
                 using (var session = DocumentStoreHolder.Store.OpenSession())
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        var sampleTask = new MyTask {TaskToDo = "Task number " + i};
+                        string taskStr = "Task number " + i.ToString();
+                        var sampleTask = new MyTask {TaskToDo = taskStr};
                         session.Store(sampleTask);
-                        tasksList.Add(sampleTask);
+
+                        var SampleTaskForView = new MyTaskViewModel { Name = "MyTasks", Id = i.ToString(), TaskToDo = taskStr};
+                        tasksListForView.Add(SampleTaskForView);
                     }
                     session.SaveChanges();
                 }
             }
+            else
+            {
+                // 3. Manage view model data
+                tasksList.ForEach(x => tasksListForView.Add(new MyTaskViewModel {Id = x.Id.Split('/')[1], Name = "MyTasks", TaskToDo = x.TaskToDo}));
+            }
 
-            return View(tasksList);
+            return View(tasksListForView);
         }
 
         public IActionResult AddItem(string NewTask) 
@@ -81,13 +91,11 @@ namespace SampleApp.Controllers
             return Redirect("/");
         }
 
-        public IActionResult RemoveItem(int id)
+        public IActionResult RemoveItem(string name, string id)
         {
-            // TODO: Still need to implement coming here from the UI
-
             using (var session = DocumentStoreHolder.Store.OpenSession())
             {
-                session.Delete($"MyTasks/{id}");
+                session.Delete($"{name}/{id}");
                 session.SaveChanges();
             }
 
